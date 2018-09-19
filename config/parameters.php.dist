@@ -1,6 +1,7 @@
 <?php
 
-// Fichier à copier et à renomer parameters.php
+/* Fichier à copier et à renomer parameters.php */
+
 
 
 $db_host = "localhost";
