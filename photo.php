@@ -6,6 +6,7 @@ $id = $_GET["id"];
 
 $photo = getPhoto($id);
 $liste_tags = getAllTagsByPhoto($id);
+$liste_commentaires = getAllCommentairesByPhoto($id);
 
 getHeader($photo["titre"], "Description page photo");
 ?>
@@ -26,7 +27,7 @@ getHeader($photo["titre"], "Description page photo");
             <li># <?php echo $tag["libelle"]; ?></li>
         <?php endforeach; ?>
     </ul>
-<p>  Nombre de likes : <?php echo $photo ["nb_likes"]?> </p>
+    <p>  Nombre de likes : <?php echo $photo ["nb_likes"]?> </p>
 
     <p>
         <a href="categorie.php?id=<?php echo $photo['categorie_id']?>">
@@ -34,6 +35,29 @@ getHeader($photo["titre"], "Description page photo");
     </p>
 
     <p> <?php echo $photo ["description"];?></p>
+
+    <section class="commentaires">
+
+        <fieldset>
+            <legend> Poster un commentaire </legend>
+            <form action="insert-commentaire.php" method="POST">
+                <textarea name="contenu" placeholder="Votre message"> </textarea>
+                <input type="hidden" name="photo_id" value="<?php echo $id; ?>">
+                <input type="submit">
+            </form>
+        </fieldset>
+
+        <?php foreach ($liste_commentaires as $commentaire) : ?>
+          <article>
+              <p>
+                  Posté le <time> <?php echo $commentaire["date_creation_format"];?></time> </p>
+                  <p><?php echo $commentaire["contenu"];?>
+              </p>
+
+          </article>
+        <?php endforeach; ?>
+
+    </section>
 
 </main>
 
